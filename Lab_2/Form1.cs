@@ -24,9 +24,11 @@ namespace Lab_2
         int i;
         int c = 2;
         int b = 2;
-        double k1 = 0.5;
-        double k2 = 0.5;
-
+        int k = 1;
+        int hsv = 0;
+        int hsv_i = 100;
+        int count = 0;
+        int[] Mcount = new int[9];
 
         public Form1()
         {
@@ -36,10 +38,16 @@ namespace Lab_2
             trackBar1.Maximum = 5;
             trackBar1.TickFrequency = 1;
             trackBar1.Value = c;
+
             trackBar2.Minimum = 0;
             trackBar2.Maximum = 100;
             trackBar2.TickFrequency = 1;
             trackBar2.Value = b;
+
+            trackBar3.Minimum = 0;
+            trackBar3.Maximum = 225;
+            trackBar3.TickFrequency = 1;
+            trackBar3.Value = hsv_i;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -91,30 +99,16 @@ namespace Lab_2
         {
             sourceImage2 = new Filter().LoadImage();
 
-            if (double.TryParse(textBox1.Text, out k1) && double.TryParse(textBox2.Text, out k2))
-            {
-                if ((k1 >= 0 && k1 <= 1) && (k2 >= 0 && k2 <= 1))
-                {
-                    imageBox2.Image = new Filter().AddImg(k1, k2, sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
-                    return;
-                }
-            }
-            MessageBox.Show("Введите коэффициент от 0 до 1", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            imageBox2.Image = new Filter().AddImg(k, sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
+                    
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             sourceImage2 = new Filter().LoadImage();
 
-            if (double.TryParse(textBox1.Text, out k1) && double.TryParse(textBox2.Text, out k2))
-            {
-                if ((k1 >= 0 && k1 <= 1) && (k2 >= 0 && k2 <= 1))
-                {
-                    imageBox2.Image = new Filter().ExcImg(k1, k2, sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
-                    return;
-                }
-            }
-            MessageBox.Show("Введите коэффициент от 0 до 1", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            imageBox2.Image = new Filter().ExcImg(sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
+                    
 
         }
 
@@ -122,15 +116,71 @@ namespace Lab_2
         {
             sourceImage2 = new Filter().LoadImage();
 
-            if (double.TryParse(textBox1.Text, out k1) && double.TryParse(textBox2.Text, out k2))
+            imageBox2.Image = new Filter().CrossImg(sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
+                    
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            hsv = 0;
+
+            imageBox2.Image = new Filter().HSV_f(hsv, sourceImage, hsv_i).Resize(320, 240, Inter.Linear);
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            hsv = 1;
+
+            imageBox2.Image = new Filter().HSV_f(hsv, sourceImage, hsv_i).Resize(320, 240, Inter.Linear);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            hsv = 2;
+
+            imageBox2.Image = new Filter().HSV_f(hsv, sourceImage, hsv_i).Resize(320, 240, Inter.Linear);
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            imageBox2.Image = new Filter().BlurImg(sourceImage).Resize(320, 240, Inter.Linear);
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            
+             if (count < 9)
             {
-                if ((k1 >= 0 && k1 <= 1) && (k2 >= 0 && k2 <= 1))
-                {
-                    imageBox2.Image = new Filter().CrossImg(k1, k2, sourceImage, sourceImage2).Resize(320, 240, Inter.Linear);
-                    return;
-                }
+                Mcount[count] = int.Parse(textBox1.Text);
+                count++;
+
+                label2.Text = "";
+                label2.Text = Convert.ToString(count);
+                
             }
-            MessageBox.Show("Введите коэффициент от 0 до 1", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                count = 0;
+                label2.Text = "";
+                label2.Text = Convert.ToString(count);
+
+                
+                imageBox2.Image = new Filter().SharpImg(Mcount[0], Mcount[1], Mcount[2], Mcount[3], Mcount[4], Mcount[5], Mcount[6], Mcount[7], Mcount[8], sourceImage).Resize(320, 240, Inter.Linear);
+                    
+            }
+                
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            sourceImage2 = new Filter().LoadImage();
+
+            imageBox2.Image = new Filter().Wclr(b, c, k, sourceImage, sourceImage2);
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            imageBox2.Image = new Filter().Ctn(sourceImage).Resize(320, 240, Inter.Linear);
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -143,6 +193,11 @@ namespace Lab_2
             b = trackBar2.Value;
         }
 
-        
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            hsv_i = trackBar3.Value;
+        }
+
+       
     }
 }

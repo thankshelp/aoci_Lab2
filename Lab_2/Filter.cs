@@ -14,6 +14,8 @@ namespace Lab_2
     public class Filter
     {
         public Image<Bgr, byte> sourceImage;
+        int count = 0;
+        int[] Mcount = new int[5];
 
         public Image<Bgr, byte> LoadImage()
         {
@@ -129,7 +131,7 @@ namespace Lab_2
             return BrightImage;
         }
 
-        public Image<Bgr, byte> AddImg(double k1, double k2, Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
+        public Image<Bgr, byte> AddImg(int k, Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
         {
             var Imag1 = sourceImage.Copy().Resize(320, 240, Inter.Linear);
             var Imag2 = sourceImage2.Copy().Resize(320, 240, Inter.Linear);
@@ -138,17 +140,17 @@ namespace Lab_2
                 for (int y = 0; y < Imag1.Height; y++)
                     for (int x = 0; x < Imag1.Width; x++)
                     {
-                        if ((Imag1.Data[y, x, ch] * k1 + Imag2.Data[y, x, ch] * k2) > 255)
+                        if ((Imag1.Data[y, x, ch] * k + Imag2.Data[y, x, ch] * k) > 255)
                             Imag1.Data[y, x, ch] = 255;
-                        else if ((Imag1.Data[y, x, ch] * k1 + Imag2.Data[y, x, ch] * k2) < 0)
+                        else if ((Imag1.Data[y, x, ch] * k + Imag2.Data[y, x, ch] * k) < 0)
                             Imag1.Data[y, x, ch] = 0;
                         else
-                            Imag1.Data[y, x, ch] = Convert.ToByte(Imag1.Data[y, x, ch] * k1 + Imag2.Data[y, x, ch] * k2);
+                            Imag1.Data[y, x, ch] = Convert.ToByte(Imag1.Data[y, x, ch] * k + Imag2.Data[y, x, ch] * k);
                     }
             return Imag1;
         }
 
-        public Image<Bgr, byte> ExcImg(double k1, double k2, Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
+        public Image<Bgr, byte> ExcImg(Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
         {
             var Imag1 = sourceImage.Copy().Resize(320, 240, Inter.Linear);
             var Imag2 = sourceImage2.Copy().Resize(320, 240, Inter.Linear);
@@ -165,7 +167,7 @@ namespace Lab_2
             return Imag1;
         }
 
-        public Image<Bgr, byte> CrossImg(double k1, double k2, Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
+        public Image<Bgr, byte> CrossImg(Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
         {
             var Imag1 = sourceImage.Copy().Resize(320, 240, Inter.Linear);
             var Imag2 = sourceImage2.Copy().Resize(320, 240, Inter.Linear);
@@ -180,7 +182,103 @@ namespace Lab_2
             return Imag1;
         }
 
+        public Image<Hsv, byte> HSV_f(int hsv_cnt, Image<Bgr, byte> sourceImage, int hsv)
+        {
+            var hsvImage = sourceImage.Convert<Hsv, byte>();
 
+            for (int y = 0; y < hsvImage.Height; y++)
+                for (int x = 0; x < hsvImage.Width; x++)
+                {
+                    hsvImage.Data[y, x, hsv_cnt] = Convert.ToByte(hsv);
+                    
+                }
+            return hsvImage;
+        }
 
+        public Image<Bgr, byte> BlurImg(Image<Bgr, byte> sourceImage)
+        {
+            var grayImage = sourceImage.Convert<Bgr, byte>();
+            var resImage = grayImage.CopyBlank();
+
+            List<byte> l = new List<byte>();
+            int sh = 20;
+            int N = 9;
+
+            for (int ch = 0; ch < 3; ch++)
+                for (int y = sh; y < (grayImage.Height - sh); y++)
+                    for (int x = sh; x < (grayImage.Width - sh); x++)
+                    {
+                        l.Clear();
+
+                        for (int i = -1; i < 2; i++)
+                            for (int j = -1; j < 2; j++)
+                            {
+                                l.Add(grayImage.Data[i + y, j + x, ch]);
+                            }
+                        l.Sort();
+                        resImage.Data[y, x, ch] = l[N / 2];
+                    }
+            return resImage;
+        }
+
+        public Image<Bgr, byte> SharpImg(int a11, int a12, int a13, int a21, int a22, int a23, int a31, int a32, int a33, Image<Bgr, byte> sourceImage)
+        {
+            var grayImage = sourceImage.Convert<Bgr, byte>();
+            var resImage = grayImage.CopyBlank();
+
+            int[,] w = new int[3, 3]
+            {   {a11, a12, a13},
+                {a21, a22, a23},
+                {a31, a32, a33}};
+
+            for (int ch = 0; ch < 3; ch++)
+                for (int y = 1; y < (grayImage.Height - 1); y++)
+                    for (int x = 1; x < (grayImage.Width - 1); x++)
+                    {
+                        int r = 0;
+                        for (int i = -1; i < 2; i++)
+                            for (int j = -1; j < 2; j++)
+                            {
+                                r += grayImage.Data[i + y, j + x, ch] * w[i + 1, j + 1];
+                            }
+                        if (r > 255)
+                            r = 255;
+                        if (r < 0)
+                            r = 0;
+                        resImage.Data[y, x, ch] = (byte)r;
+                    }
+            return resImage;
+        }
+
+        public Image<Bgr, byte> Wclr(int br, int co, int k, Image<Bgr, byte> sourceImage, Image<Bgr, byte> sourceImage2)
+        {
+            var Imag1 = sourceImage.Copy().Resize(320, 240, Inter.Linear);
+            var Imag2 = sourceImage2.Copy().Resize(320, 240, Inter.Linear);
+
+            Imag1 = Brightness(br, Imag1).Resize(320, 240, Inter.Linear);
+            Imag1 = Contrast(co, Imag1).Resize(320, 240, Inter.Linear);
+            Imag1 = BlurImg(Imag1).Resize(320, 240, Inter.Linear);
+            Imag1 = AddImg(k, Imag1, Imag2).Resize(320, 240, Inter.Linear);
+
+            return Imag1;
+        }
+
+        public Image<Bgr, byte> Ctn(Image<Bgr, byte> sourceImage)
+        {
+            var Imag1 = sourceImage.Copy().Resize(320, 240, Inter.Linear);
+            var Imag2 = Imag1;
+            int k = 1;
+
+            Imag1 = BandW(Imag1).Resize(320, 240, Inter.Linear).Convert<Bgr, byte>();
+            Imag1 = BlurImg(Imag1).Resize(320, 240, Inter.Linear);
+
+            var edges = Imag1.Convert<Gray, byte>();
+            edges = edges.ThresholdAdaptive(new Gray(100), AdaptiveThresholdType.MeanC, ThresholdType.Binary, 3, new Gray(0.03));
+
+            Imag1 = AddImg(k, Imag2, edges.Convert<Bgr, byte>()).Resize(320, 240, Inter.Linear);
+
+            return Imag1;
+        }
     }
+    
 }

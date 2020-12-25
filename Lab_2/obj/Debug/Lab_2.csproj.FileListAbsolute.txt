@@ -30,3 +30,34 @@ D:\Program\5 семестр\Lab_2\Lab_2\obj\Debug\Lab_2.csproj.CoreCompileInputs
 D:\Program\5 семестр\Lab_2\Lab_2\obj\Debug\Lab_2.csproj.CopyComplete
 D:\Program\5 семестр\Lab_2\Lab_2\obj\Debug\Lab_2.exe
 D:\Program\5 семестр\Lab_2\Lab_2\obj\Debug\Lab_2.pdb
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\concrt140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\cvextern.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\msvcp140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\msvcp140_1.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\msvcp140_2.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\msvcp140_codecvt_ids.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\opencv_videoio_ffmpeg430_64.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\vcruntime140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x64\vcruntime140_1.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\concrt140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\cvextern.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\msvcp140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\msvcp140_1.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\msvcp140_2.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\msvcp140_codecvt_ids.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\opencv_videoio_ffmpeg430.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\x86\vcruntime140.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Lab_2.exe.config
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Lab_2.exe
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Lab_2.pdb
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Emgu.CV.Platform.NetFramework.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Emgu.CV.Platform.NetStandard.dll
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Emgu.CV.Platform.NetFramework.xml
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\bin\Debug\Emgu.CV.Platform.NetStandard.xml
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.csprojAssemblyReference.cache
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.Form1.resources
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.Properties.Resources.resources
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.csproj.GenerateResource.cache
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.csproj.CopyComplete
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.exe
+C:\Users\Виктория\Desktop\program\Lab_2\Lab_2\obj\Debug\Lab_2.pdb
